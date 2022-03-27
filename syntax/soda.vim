@@ -28,4 +28,4 @@ highlight link LNum 	      Number
 highlight link LIdentifier  Identifier
 highlight link LSymbol      Special
 
-let b:current_syntax = 'soda'
+let b:current_syntax = 'sd'
