@@ -1,27 +1,34 @@
 scriptencoding utf-8
 
 if exists('b:current_syntax')
-	finish
+    finish
 endif
 
-syntax keyword LCommentTodo contained FIXME XXX TODO BUG NOTE HACK
-syntax keyword LFunName + - * / = > >= < <= not= number? not and or
-syntax keyword LFunName first rest nth take drop count map filter reduce catmap
+syntax match sodaComment "\v\{\..*$" contains=@Spell
+syntax match sodaComment "\v#!.*$"
 
-syntax region LString  start=+"+ skip=+\\\\\|\\"+ end=+"+ 
-w
-syntax match LComment    ";.*$" contains=LCommentTodo,@Spell
-syntax match LIdentifier "\v[a-z][a-zA-Z0-9]*"
-syntax match LType 	 "\v[A-Z][a-zA-Z0-9]*"
-syntax match LNum 	 "\v[0-9]+"
-syntax match LNum 	 "\v[0-9]+\.[0
+syntax match sodaIdentifier "\v[a-z][a-zA-Z0-9]*"
+syntax match sodaType "\v[A-Z][a-zA-Z0-9]*"
 
-highlight      LComment     ctermfg=DarkGrey guifg=DarkGrey
-highlight      LCommentTodo ctermfg=Black ctermbg=Yellow guifg=Black guibg=Yellow
-highlight      LFunName     ctermfg=Black ctermbg=Yellow guifg=Black guibg=Yellow 
-highlight link LKeyword     Keyword
-highlight link LNum 	    Number
-highlight link LIdentifier  Identifier
-highlight link LSymbol      Special
+syntax match sodaNum "\v[0-9]+"
+syntax match sodaNum "\v[0-9]+\.[0-9]+"
+
+syntax keyword sodaKeyword true false if then else let rec in match with fun
+" syntax match sodaKeyword ":set"
+" syntax match sodaKeyword "@include"
+
+syntax region sodaRegex start="/" end="/"
+syntax region sodaString start="'" end="'" contains=sodaSpecial
+
+syntax match sodaSpecial +\\['\\n]+
+
+highlight link sodaComment Comment
+highlight link sodaKeyword Keyword
+highlight link sodaNum Number
+highlight link sodaIdentifier Identifier
+highlight link sodaSymbol Special
+highlight link sodaRegex String
+highlight link sodaString String
+highlight link sodaSpecial Special
 
 let b:current_syntax = 'soda'
