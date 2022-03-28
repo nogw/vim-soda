@@ -1,3 +1,3 @@
 augroup soda
-    autocmd BufNewFile,BufRead *.sd set filetype=sd
+    autocmd BufNewFile,BufRead *.soda set filetype=soda
 augroup END
